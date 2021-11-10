@@ -1,0 +1,18 @@
+module.exports = mongoose => {
+    var schema = mongoose.Schema(
+      {
+        ListName: String,
+      }
+    );
+  
+    schema.method("toJSON", function() {
+      const { __v, _id, ...object } = this.toObject();
+      object.id = _id;
+      return object;
+    });
+  
+    const MetaData = mongoose.model("test", schema, "test");
+    console.log(MetaData);
+    return MetaData;
+  };
+  
