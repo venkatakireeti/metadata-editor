@@ -5,7 +5,7 @@ services:
     image: mongo:latest
     environment:
         - MONGO_INITDB_ROOT_USERNAME=root
-        - MONGO_INITDB_ROOT_PASSWORD=MyPa$$w0rd
+        - MONGO_INITDB_ROOT_PASSWORD=123456
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         # Here you are setting the username and password
         # so change it to whatever you want
