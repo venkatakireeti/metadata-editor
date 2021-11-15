@@ -8,7 +8,7 @@ var corsOptions = {
   origin: "http://18.217.55.36:8081"
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(express.json());  /* bodyParser.json() is deprecated */
