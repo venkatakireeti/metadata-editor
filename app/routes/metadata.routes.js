@@ -12,5 +12,8 @@ module.exports = app => {
   // create metadatas
   router.post("/", metadatas.create);
 
+  // update metadatas
+  router.put("/:id", metadatas.updateById);
+
   app.use("/api/metadatas", router);
 };

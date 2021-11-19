@@ -33,6 +33,21 @@ exports.create = (req, res) => {
     });
 };
 
+exports.updateById = (req, res) =>  {
+  const { id } = req.params;
+
+  MetaData.findByIdAndUpdate(id,
+    { ListName: req.body.listName }).then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Metadatas",
+      });
+    });
+};
+
 // delete metadata by id from the database.
 exports.deleteById = (req, res) => {
   const { id } = req.params;
