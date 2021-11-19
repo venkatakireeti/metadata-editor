@@ -2,6 +2,7 @@ module.exports = mongoose => {
     var schema = mongoose.Schema(
       {
         ListName: String,
+        id: Object,
       }
     );
   
@@ -12,7 +13,6 @@ module.exports = mongoose => {
     });
   
     const MetaData = mongoose.model("test", schema, "test");
-    console.log(MetaData);
     return MetaData;
   };
   

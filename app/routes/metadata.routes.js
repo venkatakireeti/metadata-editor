@@ -1,10 +1,16 @@
 module.exports = app => {
-  const tutorials = require("../controllers/metadata.controller.js");
+  const metadatas = require("../controllers/metadata.controller.js");
 
   var router = require("express").Router();
 
-  // Retrieve all Tutorials
-  router.get("/", tutorials.findAll);
+  // Retrieve all metadatas
+  router.get("/", metadatas.findAll);
+
+  // delete metadatas
+  router.delete("/:id", metadatas.deleteById);
+
+  // create metadatas
+  router.post("/", metadatas.create);
 
   app.use("/api/metadatas", router);
 };
