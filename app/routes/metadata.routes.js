@@ -14,6 +14,6 @@ module.exports = app => {
 
   // update metadatas
   router.put("/:id", metadatas.updateById);
-
+  router.get("/login/url", metadatas.loginURL);
   app.use("/api/metadatas", router);
 };

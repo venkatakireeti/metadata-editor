@@ -1,6 +1,19 @@
 const db = require("../models");
 const MetaData = db.metadatas;
 
+const {google} = require('googleapis');
+
+
+const oauth2Client = new google.auth.OAuth2(
+  "332859650716-5o209mlbuekra8ek4s9saf8me3boasub.apps.googleusercontent.com",
+  "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",
+  "http://localhost:3000",
+);
+
+const scopes = [
+  'https://www.googleapis.com/auth/blogger',
+  'https://www.googleapis.com/auth/calendar'
+];
 // Retrieve all metadata from the database.
 exports.findAll = (req, res) => {
   var condition = {};
@@ -64,3 +77,13 @@ exports.deleteById = (req, res) => {
     });
 };
 
+exports.loginURL = (req, res) => {
+  const url = oauth2Client.generateAuthUrl({
+    // 'online' (default) or 'offline' (gets refresh_token)
+    access_type: 'offline',
+  
+    // If you only need one scope you can pass it as a string
+    scope: scopes
+  });
+  res.send(url);
+};
