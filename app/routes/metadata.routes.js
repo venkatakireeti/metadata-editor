@@ -15,5 +15,6 @@ module.exports = app => {
   // update metadatas
   router.put("/:id", metadatas.updateById);
   router.get("/login/url", metadatas.loginURL);
+  router.get("/login/code", metadatas.getGoogleAccountFromCode);
   app.use("/api/metadatas", router);
 };
