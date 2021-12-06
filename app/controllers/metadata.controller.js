@@ -83,7 +83,7 @@ exports.loginURL = (req, res) => {
     access_type: 'offline',
   
     // If you only need one scope you can pass it as a string
-    scope: scopes
+    scope: defaultScope
   });
   res.send(url);
 };
