@@ -91,7 +91,7 @@ exports.loginURL = (req, res) => {
 /**
  * Extract the email and id of the google account from the "code" parameter.
  */
- exports.getGoogleAccountFromCode = (req, res) => {
+ exports.getGoogleAccountFromCode = async (req, res) => {
   
   // get the auth "tokens" from the request
   const data = await oauth2Client.getToken(code);
