@@ -14,6 +14,15 @@ const defaultScope = [
   'https://www.googleapis.com/auth/plus.me',
   'https://www.googleapis.com/auth/userinfo.email',
 ];
+
+function createConnection() {
+  return new google.auth.OAuth2(
+    "332859650716-5o209mlbuekra8ek4s9saf8me3boasub.apps.googleusercontent.com",
+    "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",
+    "http://ec2-18-217-55-36.us-east-2.compute.amazonaws.com:49160",
+  );
+}
+
 // Retrieve all metadata from the database.
 exports.findAll = (req, res) => {
   var condition = {};
@@ -92,7 +101,8 @@ exports.loginURL = (req, res) => {
  * Extract the email and id of the google account from the "code" parameter.
  */
  exports.getGoogleAccountFromCode = async (req, res) => {
-  
+  const {code} = req.query;
+  console.log(code);
   // get the auth "tokens" from the request
   const data = await oauth2Client.getToken(code);
   const tokens = data.tokens;
@@ -111,9 +121,9 @@ exports.loginURL = (req, res) => {
   const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
 
   // return so we can login or sign up the user
-  return {
+  res.status(200).send({
     id: userGoogleId,
     email: userGoogleEmail,
     tokens: tokens, // you can save these to the user if you ever want to get their details without making them log in again
-  };
+  });
 }
