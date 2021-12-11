@@ -1,5 +1,6 @@
 module.exports = app => {
   const metadatas = require("../controllers/metadata.controller.js");
+  const auth = require("../controllers/auth.controller.js");
 
   var router = require("express").Router();
 
@@ -14,7 +15,7 @@ module.exports = app => {
 
   // update metadatas
   router.put("/:id", metadatas.updateById);
-  router.get("/login/url", metadatas.loginURL);
-  router.get("/login/code", metadatas.getGoogleAccountFromCode);
+  router.get("/login/url", auth.loginURL);
+  router.get("/login/code", auth.getAccessToken);
   app.use("/api/metadatas", router);
 };
