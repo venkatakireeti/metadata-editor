@@ -37,6 +37,12 @@ exports.getAccessToken = async (req, res) => {
     const { code } = req.query;
     console.log(code);
     const accessToken = await getAccessTokenFromCode(code);
-    const userInfo = await getGoogleUserInfo(accessToken);
-    res.send({user: userInfo, accessToken: accessToken });
+    res.send({accessToken: accessToken });
 };
+
+exports.getUserInfo = async (req, res) => {
+    const { accessToken } = req.get("x-access-token");
+    const userInfo = await getGoogleUserInfo(accessToken);
+    res.send({user: userInfo});
+};
+

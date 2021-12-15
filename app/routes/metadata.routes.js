@@ -17,5 +17,6 @@ module.exports = app => {
   router.put("/:id", metadatas.updateById);
   router.get("/login/url", auth.loginURL);
   router.get("/login/code", auth.getAccessToken);
+  router.get("/user", auth.getUserInfo);
   app.use("/api/metadatas", router);
 };
