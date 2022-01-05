@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { NativeError } = require("mongoose");
 const authConfig = require("../config/auth.config.js");
 async function getAccessTokenFromCode(code) {
     const { data } = await axios({
@@ -17,15 +18,20 @@ async function getAccessTokenFromCode(code) {
 };
 
 async function getGoogleUserInfo(access_token) {
-    const { data } = await axios({
-      url: 'https://www.googleapis.com/oauth2/v2/userinfo',
-      method: 'get',
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    });
-    console.log(data); // { id, email, given_name, family_name }
-    return data;
+    try {
+        const { data } = await axios({
+            url: 'https://www.googleapis.com/oauth2/v2/userinfo',
+            method: 'get',
+            headers: {
+                Authorization: `Bearer ${access_token}`,
+            },
+        });
+        console.log(data); // { id, email, given_name, family_name }
+        return data;
+    } catch(error) {
+        console.log(error.response);
+        throw error;
+    }
   };
 
 exports.loginURL = (req, res) => {
@@ -37,12 +43,18 @@ exports.getAccessToken = async (req, res) => {
     const { code } = req.query;
     console.log(code);
     const accessToken = await getAccessTokenFromCode(code);
-    res.send({accessToken: accessToken });
+    res.send({ accessToken: accessToken });
 };
 
 exports.getUserInfo = async (req, res) => {
     const accessToken = req.get("x-access-token");
-    const userInfo = await getGoogleUserInfo(accessToken);
-    res.send({user: userInfo});
+    try {
+        const userInfo = await getGoogleUserInfo(accessToken);
+        res.send({ user: userInfo });
+    } catch (error) {
+        res.status(error.response.status);
+        res.send(error.response.statusText);
+    }
+
 };
 
